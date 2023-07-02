@@ -1,5 +1,6 @@
 package com.task.schoolservis.controller;
 
+import com.task.schoolservis.dto.password.PasswordChangeDto;
 import com.task.schoolservis.dto.userDto.UserDto;
 import com.task.schoolservis.dto.userDto.UserSaveDto;
 import com.task.schoolservis.dto.userDto.UserUpdateDto;
@@ -47,6 +48,11 @@ public class UserController {
     @PutMapping("/{userId}/role")
     public ResponseEntity<UserDto> revokeRole(@PathVariable Long userId, Long roleId) {
         return new ResponseEntity<>( userService.revokeRole( userId, roleId ), HttpStatus.CREATED );
+    }
+
+    @PostMapping("/password-change")
+    public ResponseEntity<Boolean> changePassword(@RequestBody PasswordChangeDto passwordChangeDto) {
+        return new ResponseEntity<>( userService.changePassword(  passwordChangeDto ), HttpStatus.CREATED );
     }
 
 

@@ -1,5 +1,7 @@
 package com.task.schoolservis.service;
 
+import com.task.schoolservis.dto.password.ForgotPasswordDto;
+import com.task.schoolservis.dto.password.PasswordChangeDto;
 import com.task.schoolservis.dto.userDto.UserDto;
 import com.task.schoolservis.dto.userDto.UserSaveDto;
 import com.task.schoolservis.dto.userDto.UserUpdateDto;
@@ -16,13 +18,9 @@ public interface UserService {
     UserDto assignRole(Long userId, Long roleId);
 
     UserDto revokeRole(Long userId, Long roleId);
+    boolean changePassword(PasswordChangeDto passwordChangeDto);
+    String generateTokenForUser(String email);
+    void resetPassword(ForgotPasswordDto passwordChangeDto);
 
-//    UserDto replaceLaptop(Long userId, Long laptopId,UserSaveDto userSaveDto);
 
-
-//    void resetPassword(PasswordChangeDto passwordChangeDto);
-//
-//    String generateTokenForUser(ChangePwEmailDto changePwEmailDto);
-//
-//    void resetPassword(ForgotPasswordDto passwordChangeDto);
 }

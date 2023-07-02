@@ -11,8 +11,8 @@ import javax.validation.constraints.Size;
 public class PasswordChangeDto {
 
     private String currentPassword;
-    @Size(min = 6, message = "user.validate.password.Size.Min.6")
+    @Size(min = 6, message = "Password size must not be less than 6 characters")
     private String newPassword;
-    @Size(min = 6, message = "user.validate.password.Size.Min.6")
+    @Size(min = 6, message = "Password size must not be less than 6 characters")
     private String confirmPassword;
 }

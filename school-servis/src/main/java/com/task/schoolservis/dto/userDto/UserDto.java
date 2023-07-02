@@ -1,5 +1,6 @@
 package com.task.schoolservis.dto.userDto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.task.schoolservis.entity.Laptop;
 import com.task.schoolservis.entity.Role;
 import lombok.AllArgsConstructor;
@@ -19,5 +20,6 @@ public class UserDto {
     private String fullName;
     private String email;
     private List<Role> roles;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Laptop laptop;
 }

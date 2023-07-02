@@ -1,13 +1,16 @@
 package com.task.schoolservis.controller;
 
+import com.task.schoolservis.dto.EmailResponseDto;
 import com.task.schoolservis.dto.TokenDto;
 import com.task.schoolservis.dto.authDto.AuthDto;
 import com.task.schoolservis.dto.authDto.AuthResponseDto;
+import com.task.schoolservis.dto.password.ForgotPasswordDto;
 import com.task.schoolservis.dto.userDto.UserDto;
 import com.task.schoolservis.entity.User;
 import com.task.schoolservis.exception.NotFoundException;
 import com.task.schoolservis.repository.UserRepository;
 import com.task.schoolservis.security.JwtTokenProvider;
+import com.task.schoolservis.service.MailSendingService;
 import com.task.schoolservis.service.UserService;
 import com.task.schoolservis.util.MappingTool;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -32,19 +37,20 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final UserRepository userRepository;
-
     private final MappingTool mapper;
     private final UserService userService;
+    private final MailSendingService mailSendingService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, MappingTool mapper, UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, MappingTool mapper, UserService userService, MailSendingService mailSendingService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
         this.mapper = mapper;
         this.userService = userService;
+        this.mailSendingService = mailSendingService;
     }
 
-    //    private final MailSendingService mailSendingService;
+
 
 
     @PostMapping("/get-token")
@@ -81,28 +87,22 @@ public class AuthController {
                 HttpStatus.OK
         );
     }
-//
-//    @PostMapping("/reset-password")
-//    public ResponseEntity<Void> resetPassword( @RequestBody PasswordChangeDto password) {
-//        userService.resetPassword(password);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//
-//    @PostMapping("/forgot-password/mail")
-//    public ResponseEntity<EmailResponseDto> forgotPassword(@RequestBody ChangePwEmailDto changePwEmailDto) {
-//        return new ResponseEntity<>(
-//                mailSendingService.sendSimpleMail(changePwEmailDto.getEmail()),
-//                HttpStatus.OK
-//        );
-//    }
-//
-//
-//    @PostMapping("/forgot-password")
-//    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ForgotPasswordDto password) {
-//        userService.resetPassword(password);
-//        return ResponseEntity.ok().build();
-//    }
+
+    @PostMapping("/forgot-password/mail")
+    public ResponseEntity<EmailResponseDto> forgotPassword(@RequestBody String email) {
+        return new ResponseEntity<>(
+                mailSendingService.sendSimpleMail(email),
+                HttpStatus.OK
+        );
+    }
+
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ForgotPasswordDto password) {
+        userService.resetPassword(password);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }
