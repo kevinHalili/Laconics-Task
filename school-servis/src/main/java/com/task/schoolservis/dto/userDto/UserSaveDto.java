@@ -1,13 +1,12 @@
 package com.task.schoolservis.dto.userDto;
 
 import com.task.schoolservis.dto.laptopDto.LaptopSaveDto;
-
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import javax.validation.constraints.Size;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter

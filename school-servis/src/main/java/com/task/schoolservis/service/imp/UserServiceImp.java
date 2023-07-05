@@ -1,6 +1,6 @@
 package com.task.schoolservis.service.imp;
 
-import com.sun.java.accessibility.util.Translator;
+
 import com.task.schoolservis.dto.password.ForgotPasswordDto;
 import com.task.schoolservis.dto.password.PasswordChangeDto;
 import com.task.schoolservis.dto.userDto.UserDto;
@@ -84,7 +84,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDto updateUser(UserUpdateDto userUpdateDto, Long userId) {
-        return null;
+        User user = this.userRepository.findById( userId ).orElseThrow( () -> new NotFoundException(
+                "User", "Id",
+                userId.toString() ) );
+        mapper.map( userUpdateDto,user );
+        return mapper.map(user, UserDto.class);
     }
 
     @Override

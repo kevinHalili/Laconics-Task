@@ -5,7 +5,6 @@ import com.task.schoolservis.dto.userDto.UserDto;
 import com.task.schoolservis.dto.userDto.UserSaveDto;
 import com.task.schoolservis.dto.userDto.UserUpdateDto;
 import com.task.schoolservis.service.UserService;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

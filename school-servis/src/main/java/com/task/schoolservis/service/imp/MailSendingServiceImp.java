@@ -8,7 +8,6 @@ import com.task.schoolservis.repository.UserRepository;
 import com.task.schoolservis.service.MailSendingService;
 import com.task.schoolservis.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -46,8 +45,8 @@ public class MailSendingServiceImp implements MailSendingService {
             helper.setFrom( sender );
             helper.setSubject( "Password reset" );
             String token = userService.generateTokenForUser( user.getEmail() );
-            helper.setText( "Hi " + user.getFullName() + "!\n" + "A request has been made to reset your password." +
-                    "Below you can find the reset password link. Please follow the link below.\n" + baseUrl + token );
+            helper.setText( "<h1>Hi " + user.getFullName() + "!</h1>\n" + "<h3>A request has been made to reset your password." +
+                    "Below you can find the reset password link. Please follow the link below.\n<h3>" + baseUrl + token ,true);
             helper.setTo( user.getEmail() );
             javaMailSender.send( message );
             return new EmailResponseDto( "Email sent successfully" );
